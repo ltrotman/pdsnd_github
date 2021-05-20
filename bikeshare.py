@@ -2,6 +2,7 @@ import time
 import pandas as pd
 import numpy as np
 import calendar as cl
+from datetime import date
 
 #Import data sources
 CITY_DATA = { 'chicago': 'chicago.csv',
@@ -56,7 +57,7 @@ def get_filters():
         else:
             print("Opps, I didn't catch that. Please double check your spelling.")  #displays error and reasks user for input
 
-    print('-'*40)
+    print('-'*60)
     return city, month, day #collect input values
 
 #Function to load dataframe and apply input filters from above
@@ -125,7 +126,7 @@ def time_stats(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function to determine stats for most popular stations and routes
 def station_stats(df):
@@ -149,7 +150,7 @@ def station_stats(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function to calculate stats for Trip Duration
 def trip_duration_stats(df):
@@ -169,7 +170,7 @@ def trip_duration_stats(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function for determining user stats and demographics for cities with demographic data
 def user_stats_with_demo(df):
@@ -192,12 +193,18 @@ def user_stats_with_demo(df):
     youngest_birth_year = int(df['Birth Year'].max()) #most recent birth year
     most_common_birth_year = int(df['Birth Year'].mode()[0]) #most common birth year
 
+    # Calculate average age of user
+    current_date = date.today()
+    current_year = current_date.year
+    user_age = current_year - df['Birth Year']
+    average_user_age = int(user_age.mean())
+
     #Display User Information & Demographics where available
-    print('Users by Type\n', user_types, '\n\nUsers Genders:\n',user_gender, '\n\nOldest Birth Year:', oldest_birth_year, '\nYoungest Birth Year:', youngest_birth_year, '\nMost Frequent Birth Year:', most_common_birth_year)
+    print('Users by Type\n', user_types, '\n\nUsers Genders:\n',user_gender, '\n\nOldest Birth Year:', oldest_birth_year, '\nYoungest Birth Year:', youngest_birth_year, '\nMost Frequent Birth Year:', most_common_birth_year, '\nAverage User Age:', average_user_age, 'years old')
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function for determining user stats and demographics for cities without demographic data
 def user_stats_no_demo(df):
@@ -215,18 +222,18 @@ def user_stats_no_demo(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 
     #Function to Prompt the user if they want to see 5 lines of raw data. Continues to and displays until the user says 'no'.
 def individual_data(df):
     start_row = 0
-    view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n')
+    view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or any other key to continue.\n')
     view_data = view_data.lower() #converts input to lowercase
     while view_data == 'yes':
             print(df.iloc[start_row : start_row + 5])
             start_row += 5
-            view_data = input('Would you like to see 5 more rows of data? yes or no\n').lower()
+            view_data = input('Would you like to see 5 more rows of data? yes or any other key to continue.\n').lower()
 
 
     #Main function that call all the other functions, applies the filters and restarts the program
@@ -244,7 +251,7 @@ def main():
             user_stats_with_demo(df)
         individual_data(df) #displays individual data 5 rows at a time until users stops
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n') #restarts program
+        restart = input('\nWould you like to restart? Enter yes or any other key to continue.\n') #restarts program
         if restart.lower() != 'yes':
             break
 
