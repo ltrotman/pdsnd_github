@@ -23,7 +23,7 @@ def get_filters():
     month_list = ["all", "january", "february", "march", "april", "may", "june"]
     day_list = ["all", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
-    print('-'*40)
+    print('-'*60)
     print('Hello! Bicycle-sharing systems allow users to rent bicycles on a short-term basis for a price. \nLet\'s explore some US bikeshare data for three select cities!')
     # Get user input for city in city_list. While loop used to handle invalid inputs
     while True:
@@ -56,7 +56,7 @@ def get_filters():
         else:
             print("Opps, I didn't catch that. Please double check your spelling.")  #displays error and reasks user for input
 
-    print('-'*40)
+    print('-'*60)
     return city, month, day #collect input values
 
 #Function to load dataframe and apply input filters from above
@@ -126,7 +126,7 @@ def time_stats(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function to determine stats for most popular stations and routes
 def station_stats(df):
@@ -150,7 +150,7 @@ def station_stats(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function to calculate stats for Trip Duration
 def trip_duration_stats(df):
@@ -170,7 +170,7 @@ def trip_duration_stats(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function for determining user stats and demographics for cities with demographic data
 def user_stats_with_demo(df):
@@ -194,7 +194,7 @@ def user_stats_with_demo(df):
     most_common_birth_year = int(df['Birth Year'].mode()[0]) #most common birth year
 
     # Calculate average age of user
-    current_date = date.today() 
+    current_date = date.today()
     current_year = current_date.year
     user_age = current_year - df['Birth Year']
     average_user_age = int(user_age.mean())
@@ -204,7 +204,7 @@ def user_stats_with_demo(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 #Function for determining user stats and demographics for cities without demographic data
 def user_stats_no_demo(df):
@@ -222,7 +222,7 @@ def user_stats_no_demo(df):
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('-'*60)
 
 
     #Function to Prompt the user if they want to see 5 lines of raw data. Continues to and displays until the user says 'no'.
