@@ -2,6 +2,7 @@ import time
 import pandas as pd
 import numpy as np
 import calendar as cl
+from datetime import date
 
 #Import data sources
 CITY_DATA = { 'chicago': 'chicago.csv',
@@ -192,8 +193,14 @@ def user_stats_with_demo(df):
     youngest_birth_year = int(df['Birth Year'].max()) #most recent birth year
     most_common_birth_year = int(df['Birth Year'].mode()[0]) #most common birth year
 
+    # Calculate average age of user
+    current_date = date.today() 
+    current_year = current_date.year
+    user_age = current_year - df['Birth Year']
+    average_user_age = int(user_age.mean())
+
     #Display User Information & Demographics where available
-    print('Users by Type\n', user_types, '\n\nUsers Genders:\n',user_gender, '\n\nOldest Birth Year:', oldest_birth_year, '\nYoungest Birth Year:', youngest_birth_year, '\nMost Frequent Birth Year:', most_common_birth_year)
+    print('Users by Type\n', user_types, '\n\nUsers Genders:\n',user_gender, '\n\nOldest Birth Year:', oldest_birth_year, '\nYoungest Birth Year:', youngest_birth_year, '\nMost Frequent Birth Year:', most_common_birth_year, '\nAverage User Age:', average_user_age, 'years old')
 
     #Display processing time
     print("\nThis took %s seconds." % (time.time() - start_time))
